@@ -52,14 +52,14 @@ while True:
 
     cv2.imshow("Yapay Zeka - Acil Fren Sistemi", cizilmis_kare)
 
-    # 5. TEPKİ (ACİL FREN)
+   # 5. TEPKİ (ACİL FREN ve İZLEME)
     if tehlike_algilandi:
-        print("\n🚨 DİKKAT! Hedef (İnsan/Araç) algılandı!")
-        print("🛑 ACİL FREN YAPILIYOR ve MOTORLAR DURDURULUYOR!")
-        # Drone'a olduğu yerde havada asılı kalma (hover) komutu veriyoruz
-        client.hoverAsync().join()
-        time.sleep(3) # Ekrana bakman için 3 saniye bekletiyoruz
-        break # Uçuşu iptal edip döngüden çıkıyoruz
+        print("🚨 Hedef algılandı! Fren yapıldı ve havada bekleniyor...")
+        client.hoverAsync().join() # Drone olduğu yerde çakılı kalır
+        # 'break' komutunu ve 'sleep' komutunu sildik. Artık inmeyecek, havada izleyecek.
+    else:
+        # Eğer ekranda araba/insan yoksa uçuşa devam et
+        client.moveToPositionAsync(50, 0, -5, 4)
 
     # Manuel çıkış için
     if cv2.waitKey(1) & 0xFF == ord('q'):
